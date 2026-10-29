@@ -6,6 +6,58 @@
 <title>DACUM Lite &amp; DACUM Live Pro — From Workshop to Ready Chart</title>
 <meta name="description" content="Multilingual tools to build, edit, and export DACUM occupational analysis charts — plus a Pro edition that runs the full DACUM/SCID path, from live workshop voting to task analysis and the module curriculum, with optional AI assistance.">
 
+<!-- Search engines and link previews. The page is one file whose language
+     is chosen in the browser, so each language has its own address
+     (?lang=fr, ?lang=ar) for search engines to index; plain / is English. -->
+<link rel="alternate" hreflang="en" href="https://dacumtools.com/">
+<link rel="alternate" hreflang="fr" href="https://dacumtools.com/?lang=fr">
+<link rel="alternate" hreflang="ar" href="https://dacumtools.com/?lang=ar">
+<link rel="alternate" hreflang="x-default" href="https://dacumtools.com/">
+<meta name="author" content="Husham Jawad Kadhim">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DACUM Tools">
+<meta property="og:url" content="https://dacumtools.com/">
+<meta property="og:title" content="DACUM Lite — free DACUM chart builder">
+<meta property="og:description" content="Build, edit and export DACUM occupational analysis charts — free, in your browser, in English, French and Arabic.">
+<meta property="og:image" content="https://dacumtools.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DACUM Lite — build, edit and export DACUM charts, free">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="ar_AR">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "DACUM Tools",
+      "url": "https://dacumtools.com/",
+      "inLanguage": ["en", "fr", "ar"]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "DACUM Lite",
+      "url": "https://lite.dacumtools.com/app/",
+      "description": "Build, edit and export DACUM occupational analysis charts (duties and tasks) in the browser, in English, French and Arabic. Exports to PDF and Word.",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Web browser",
+      "inLanguage": ["en", "fr", "ar"],
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "image": "https://dacumtools.com/og-image.png",
+      "author": {
+        "@type": "Person",
+        "name": "Husham Jawad Kadhim",
+        "sameAs": "https://www.linkedin.com/in/husham-jawad-kadhim-954006200/"
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
 
 <style>
@@ -534,7 +586,8 @@ html[lang="fr"] h1[data-fr], html[lang="fr"] h2[data-fr], html[lang="fr"] h3[dat
 <script>
 (function(){
     try {
-        var l = localStorage.getItem('dacum_lang');
+        // ?lang= first: it is the address search engines index for each language.
+        var l = new URLSearchParams(location.search).get('lang') || localStorage.getItem('dacum_lang');
         if (l === 'en' || l === 'fr' || l === 'ar') {
             document.documentElement.lang = l;
             document.documentElement.dir  = (l === 'ar') ? 'rtl' : 'ltr';
@@ -1053,6 +1106,9 @@ document.addEventListener('DOMContentLoaded', () => {
         sel.value = document.documentElement.lang;
         sel.addEventListener('change', () => applyLang(sel.value));
     }
+    // Title and description follow the language from the first paint,
+    // not only after a change in the dropdown.
+    applyLang(document.documentElement.lang);
 });
 
 // ── Theme toggle — cycles Theme 1 → Theme 2 → Theme 3 → Theme 1 ──
