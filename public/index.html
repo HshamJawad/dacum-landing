@@ -1123,6 +1123,19 @@ const SITE_LINKS = {
         if (cfg && cfg.enabled && cfg.url) {
             a.href = cfg.url;
             if (a.dataset.tool === 'pro') { a.target = '_blank'; a.rel = 'noopener'; }
+            if (a.dataset.tool === 'lite') {
+                // The tool is on another origin and cannot read this
+                // page's localStorage, so the language goes in ?lang=.
+                // Set when the link is used, so a language changed after
+                // the page loaded is the one that is sent.
+                const withLang = () => {
+                    const u = new URL(cfg.url, location.href);
+                    u.searchParams.set('lang', document.documentElement.lang);
+                    a.href = u.href;
+                };
+                withLang();
+                ['click', 'auxclick', 'contextmenu', 'focus'].forEach(ev => a.addEventListener(ev, withLang));
+            }
             return;
         }
         a.removeAttribute('href');
